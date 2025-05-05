@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'python3-node' } 
 
     stages {
         stage('Checkout Code') {
@@ -20,6 +20,17 @@ pipeline {
            
             }
         }
-    }
+
+        stage('Environment Info') {
+            steps {
+                sh '''
+                    echo "Python version:"
+                    python3 --version
+                    pwd
+                    ls -al
+                '''
+                }
+            }
+        }
 }
 
