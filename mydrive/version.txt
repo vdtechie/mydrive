@@ -1,1 +1,14 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git credentialsId: 'bitbucket-creds-id',
+                    url: 'https://bitbucket.org/your-workspace/your-repo.git',
+                    branch: 'main'
+            }
+        }
+    }
+}
 
