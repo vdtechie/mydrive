@@ -9,6 +9,17 @@ pipeline {
                     branch: 'main'
             }
         }
+
+        stage('Print Working Directory & List Files') {
+            steps {
+                sh '''
+                    echo "Current directory:"
+                    pwd
+                    echo "Contents:"
+                    ls -al
+           
+            }
+        }
     }
 }
 
