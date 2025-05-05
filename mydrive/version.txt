@@ -19,6 +19,33 @@ pipeline {
                     ls -al
            
             }
+        } 
+
+stage('Install Python and pip') {
+            steps {
+                script {
+                    def pythonCheck = sh(script: 'which python3 || true', returnStdout: true).trim()
+                    def pipCheck = sh(script: 'which pip3 || true', returnStdout: true).trim()
+
+                    if (!pythonCheck) {
+                        echo 'Python not found. Installing...'
+                        sh '''
+                            sudo rpm -ivh python3.rpm || sudo yum install -y ./python3.rpm
+                        '''
+                    } else {
+                        echo "Python already installed at ${pythonCheck}"
+                    }
+
+                    if (!pipCheck) {
+                        echo 'pip not found. Installing...'
+                        sh '''
+                            sudo rpm -ivh pip3.rpm || sudo yum install -y ./pip3.rpm
+                        '''
+                    } else {
+                        echo "pip already installed at ${pipCheck}"
+                    }
+                }
+            }
         }
 
         stage('Environment Info') {
